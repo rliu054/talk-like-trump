@@ -13,7 +13,7 @@ class Trainer:
         self.test_data = test_data
         self.criterion = criterion
         self.optimizer = optimizer
-        self.num_tokens = vocab_size
+        self.vocab_size = vocab_size
         self.epochs = args.epochs
         self.clips = args.clips
         self.batch_size = args.batch_size
@@ -36,7 +36,7 @@ class Trainer:
                 hidden = utils.repackage_hidden(hidden)
                 self.model.zero_grad()
                 out, hidden = self.model(data, hidden)
-                loss = self.criterion(out.view(-1, self.num_tokens), targets)
+                loss = self.criterion(out.view(-1, self.vocab_size), targets)
                 loss.backward()
 
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(),
@@ -66,7 +66,7 @@ class Trainer:
             for i in range(0, data_source.size(0) - 1, self.seq_len):
                 data, targets = utils.get_batch(data_source, self.seq_len, i)
                 output, hidden = self.model(data, hidden)
-                output_flat = output.view(-1, self.num_tokens)
+                output_flat = output.view(-1, self.vocab_size)
                 total_loss += len(data) * self.criterion(output_flat,
                                                          targets).item()
                 hidden = utils.repackage_hidden(hidden)

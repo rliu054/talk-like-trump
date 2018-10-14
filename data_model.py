@@ -41,7 +41,7 @@ class Corpus:
         ids = torch.LongTensor(token_idx)
         token_idx = 0
         for line in data_set:
-            tokens = line.split() + [Corpus.EOS_TOKEN]
+            tokens = [Corpus.SOS_TOKEN] + line.split() + [Corpus.EOS_TOKEN]
             for token in tokens:
                 ids[token_idx] = self.dictionary.word2idx[token]
                 token_idx += 1
