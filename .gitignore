@@ -2,6 +2,7 @@
 tags
 .idea/
 *.txt
+*.pt
 __pycache__/
 *.py[cod]
 *$py.class
