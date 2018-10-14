@@ -21,15 +21,15 @@ parser.add_argument('--embed_size', type=int, default=200,
                     help='embedding size')
 parser.add_argument('--hidden_size', type=int, default=200,
                     help='hidden layer size')
-parser.add_argument('--num_layers', type=int, default=1,
+parser.add_argument('--num_layers', type=int, default=2,
                     help='layers of RNN to be stacked')
-parser.add_argument('--seq_len', type=int, default=30,
+parser.add_argument('--seq_len', type=int, default=15,
                     help='sequence length')
-parser.add_argument('--dropout', type=float, default=0.5,
+parser.add_argument('--dropout', type=float, default=0.2,
                     help='dropout ratio')
 parser.add_argument('--clips', type=float, default=0.25,
                     help='used to clip gradients')
-parser.add_argument('--lr', type=float, default=0.1,
+parser.add_argument('--lr', type=float, default=0.001,
                     help='learning rate')
 
 args = parser.parse_args()

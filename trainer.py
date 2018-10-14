@@ -25,12 +25,12 @@ class Trainer:
         for epoch in range(1, self.epochs+1):
             start = time.time()
             self.model.train()  # set training mode
-            train_loss = 0
+            total_train_loss = 0
             hidden = self.model.init_hidden(self.batch_size)
+            num_batches = 0
 
             for batch, i in enumerate(range(0, self.train_data.size(0) - 1,
                                             self.seq_len)):
-                print('epoch {}, batch {}'.format(epoch, i))
                 data, targets = utils.get_batch(self.train_data,
                                                 self.seq_len, i)
                 hidden = utils.repackage_hidden(hidden)
@@ -42,9 +42,11 @@ class Trainer:
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(),
                                                self.clips)
                 self.optimizer.step()
-                train_loss += loss.item()
+                num_batches += 1
+                total_train_loss += loss.item()
 
             val_loss = self.get_loss(self.val_data)
+            train_loss = total_train_loss / num_batches
             print('-' * 89)
             print('Epoch {:3d} | time: {:5.2f}s | train loss {:5.2f} | '
                   'valid loss {:5.2f} | valid ppl {:8.2f}'.format(

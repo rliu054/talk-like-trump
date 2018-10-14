@@ -28,8 +28,8 @@ def tweet(corpus, num_tweets, device):
     model.eval()
 
     hidden = model.init_hidden(1)
-    tweet_idx = corpus.dictionary.word2idx[corpus.SOS_TOKEN]
-    tweet_input = torch.tensor([[tweet_idx]], dtype=torch.long).to(device)
+    vocab_size = len(corpus.dictionary)
+    tweet_input = torch.randint(vocab_size, (1, 1), dtype=torch.long).to(device)
 
     with open('output.txt', 'w') as out_file:
         with torch.no_grad():  # no tracking history
