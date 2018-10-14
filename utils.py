@@ -28,17 +28,17 @@ def tweet(corpus, num_tweets, device):
     model.eval()
 
     hidden = model.init_hidden(1)
-    sos_idx = corpus.dictionary.word2idx[corpus.SOS_TOKEN]
-    init_input = torch.tensor([[sos_idx]], dtype=torch.long).to(device)
+    tweet_idx = corpus.dictionary.word2idx[corpus.SOS_TOKEN]
+    tweet_input = torch.tensor([[tweet_idx]], dtype=torch.long).to(device)
 
     with open('output.txt', 'w') as outf:
         with torch.no_grad():  # no tracking history
             count = 0
             while count < num_tweets:
-                output, hidden = model(init_input, hidden)
+                output, hidden = model(tweet_input, hidden)
                 word_weights = output.squeeze().div(temperature).exp().cpu()
                 word_idx = torch.multinomial(word_weights, 1)[0]
-                input.fill_(word_idx)
+                tweet_input.fill_(word_idx)
                 word = corpus.dictionary.idx2word[word_idx]
                 outf.write(word + ' ')
                 if word == corpus.EOS_TOKEN:
