@@ -17,7 +17,7 @@ $ python main.py --embed_size=50 --hidden_size=50 --epochs=20
 ```
 
 List of parameters for the model:
-```bash
+```text
 usage: main.py [-h] [--data DATA] [--batch_size BATCH_SIZE] [--epochs EPOCHS]
                [--embed_size EMBED_SIZE] [--hidden_size HIDDEN_SIZE]
                [--num_layers NUM_LAYERS] [--seq_len SEQ_LEN]
