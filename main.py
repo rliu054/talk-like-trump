@@ -15,16 +15,22 @@ parser.add_argument('--data', type=str, default='./data',
                     help='data corpus location')
 parser.add_argument('--batch_size', type=int, default=128,
                     help='batch size')
+parser.add_argument('--epochs', type=int, default=20,
+                    help='number of epochs to run')
 parser.add_argument('--embed_size', type=int, default=200,
                     help='embedding size')
 parser.add_argument('--hidden_size', type=int, default=200,
                     help='hidden layer size')
 parser.add_argument('--num_layers', type=int, default=1,
                     help='layers of RNN to be stacked')
-parser.add_argument('--seq_len', type=int, default=20,
+parser.add_argument('--seq_len', type=int, default=30,
                     help='sequence length')
 parser.add_argument('--dropout', type=float, default=0.5,
                     help='dropout ratio')
+parser.add_argument('--clips', type=float, default=0.25,
+                    help='used to clip gradients')
+parser.add_argument('--lr', type=float, default=0.1,
+                    help='learning rate')
 
 args = parser.parse_args()
 
@@ -49,7 +55,7 @@ test_data = utils.div_to_batch(datasets[2], args.batch_size).to(device)
 model = RNN(vocab_size, args.embed_size, args.hidden_size,
             args.num_layers, args.dropout).to(device)
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters())
+optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
 # -- train and validate model
 trainer = Trainer(model, train_data, val_data, test_data,
