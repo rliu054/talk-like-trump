@@ -16,6 +16,34 @@ $ cd tweet-like-trump/
 $ python main.py --embed_size=50 --hidden_size=50 --epochs=20
 ```
 
+List of parameters for the model:
+```bash
+usage: main.py [-h] [--data DATA] [--batch_size BATCH_SIZE] [--epochs EPOCHS]
+               [--embed_size EMBED_SIZE] [--hidden_size HIDDEN_SIZE]
+               [--num_layers NUM_LAYERS] [--seq_len SEQ_LEN]
+               [--dropout DROPOUT] [--clips CLIPS] [--lr LR]
+
+Generate tweets in Trump style
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --data DATA           data corpus location
+  --batch_size BATCH_SIZE
+                        batch size
+  --epochs EPOCHS       number of epochs to run
+  --embed_size EMBED_SIZE
+                        embedding size
+  --hidden_size HIDDEN_SIZE
+                        hidden layer size
+  --num_layers NUM_LAYERS
+                        layers of RNN to be stacked
+  --seq_len SEQ_LEN     sequence length
+  --dropout DROPOUT     dropout ratio
+  --clips CLIPS         used to clip gradients
+  --lr LR               learning rate
+
+```
+
 ### 3. Check the generate tweets!
 ```bash
 $ cat output.txt
