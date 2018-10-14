@@ -31,7 +31,7 @@ def tweet(corpus, num_tweets, device):
     tweet_idx = corpus.dictionary.word2idx[corpus.SOS_TOKEN]
     tweet_input = torch.tensor([[tweet_idx]], dtype=torch.long).to(device)
 
-    with open('output.txt', 'w') as outf:
+    with open('output.txt', 'w') as out_file:
         with torch.no_grad():  # no tracking history
             count = 0
             while count < num_tweets:
@@ -40,9 +40,9 @@ def tweet(corpus, num_tweets, device):
                 word_idx = torch.multinomial(word_weights, 1)[0]
                 tweet_input.fill_(word_idx)
                 word = corpus.dictionary.idx2word[word_idx]
-                outf.write(word + ' ')
+                out_file.write(word + ' ')
                 if word == corpus.EOS_TOKEN:
-                    outf.write('\n')
+                    out_file.write('\n')
                     count += 1
 
     print('Generated {} tweets'.format(num_tweets))
